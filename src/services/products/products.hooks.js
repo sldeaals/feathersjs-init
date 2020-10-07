@@ -9,21 +9,19 @@ const processProduct = require('../../hooks/process-product');
 
 const populateProduct = require('../../hooks/populate-product');
 
-const patchProduct = require('../../hooks/patch-product');
-
 module.exports = {
   before: {
-    all: [authenticate('jwt')],
+    all: [ authenticate('jwt') ],
     find: [],
     get: [],
     create: [ /*validate(schemas.createProduct, joiOptions), */processProduct()],
-    update: [ /*validate(schemas.updateProduct, joiOptions), */patchProduct()],
-    patch: [ /*validate(schemas.updateProduct, joiOptions), */patchProduct()],
+    update: [ /*validate(schemas.updateProduct, joiOptions), */processProduct()],
+    patch: [ /*validate(schemas.updateProduct, joiOptions), */processProduct()],
     remove: []
   },
 
   after: {
-    all: [populateProduct()],
+    all: [ populateProduct() ],
     find: [],
     get: [],
     create: [],

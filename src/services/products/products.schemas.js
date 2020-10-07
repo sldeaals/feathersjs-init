@@ -12,7 +12,8 @@ const createProduct = Joi.object({
     id: Joi.string().trim().max(100), 
     name: Joi.string().trim().max(100) 
   }),
-  offers: Joi.object({ offers: Joi.string().trim().max(100) })
+  offers: Joi.object({ offers: Joi.string().trim().max(100) }),
+  user: Joi.string().trim().required()
 });
 
 const updateProduct = Joi.object({
@@ -24,7 +25,8 @@ const updateProduct = Joi.object({
     id: Joi.string().trim().max(100), 
     name: Joi.string().trim().max(100) 
   }),
-  offers: Joi.object({ offers: Joi.string().trim().max(100) })
+  offers: Joi.object({ offers: Joi.string().trim().max(100) }),
+  user: Joi.string().trim().required()
 });
 
 module.exports = {

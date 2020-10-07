@@ -52,6 +52,11 @@ module.exports = function (app) {
               itemContidion: { type: 'string' }, availability: { type: 'string' }
             },
             allow: null
+          },
+          user: {
+            type: 'object',
+            description: 'User that modifies the record',
+            required: true
           }
         }
       }

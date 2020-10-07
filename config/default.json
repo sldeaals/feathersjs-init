@@ -35,6 +35,12 @@
       "passwordField": "password"
     }
   },
-  "nedb": "../data"
+  "nedb": "../data",
+  "mongodb": "mongodb+srv://testing-user:T6fsCToHleD9boH1@cluster0.ddqbt.mongodb.net/test?retryWrites=true&w=majority",
+  "vapid": {
+    "public": "BLqQJ3kB39ZWqYfaEAEiXkGMlKPR5_vULifd8STqnB0P_e4lNbDqndDD1cFR-dbqEcZJYPC6cGxf1svReei7znI",
+    "private": "LZsVQ-lzsl55lNkLVdFrlplyZkdlMALwd42Gw2dD898",
+    "subject": "mailto:daniellamelma@gmail.com"
+  }
 }
     

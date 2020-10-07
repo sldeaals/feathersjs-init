@@ -1,25 +1,22 @@
-// users-model.js - A mongoose model
-//
+// notifications-model.js - A mongoose model
+// 
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
 module.exports = function (app) {
-  const modelName = 'products';
+  const modelName = 'notifications';
   const mongooseClient = app.get('mongooseClient');
-  const schema = new mongooseClient.Schema({
-    code: { type: String },
-    name: { type: String }, 
-    description: { type: String },
-    brand: { "@type": { type: String }, id: { type: String }, name: { type: String } },
-    author: { "@type": { type: String }, id: { type: String }, name: { type: String } },
-    offers: { 
-      "@type": { type: String },
-      url: { type: String } , priceCurrency: { type: String },
-      price: { type: String }, priceValidUntil: { type: String }, 
-      itemContidion: { type: String }, availability: { type: String }
-    },
+  const { Schema } = mongooseClient;
+  const schema = new Schema({
+    title: { type: String },
+    body: { type: String },
+    image: { type: String },
+    icon: { type: String },
+    url: { type: String },
     user: { type: mongooseClient.Schema.Types.ObjectId, ref: 'users' },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date }
+  }, {
+    timestamps: true
   });
 
   // This is necessary to avoid model compilation errors in watch mode
@@ -28,4 +25,5 @@ module.exports = function (app) {
     mongooseClient.deleteModel(modelName);
   }
   return mongooseClient.model(modelName, schema);
+  
 };

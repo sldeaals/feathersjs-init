@@ -52,10 +52,12 @@
     "cors": "^2.8.5",
     "feathers-joi": "^1.2.0",
     "feathers-memory": "^4.1.0",
+    "feathers-mongoose": "^8.3.1",
     "feathers-nedb": "^5.1.0",
     "feathers-swagger": "^1.2.1",
     "helmet": "^3.23.3",
     "joi": "^17.2.1",
+    "mongoose": "^5.10.8",
     "nedb": "^1.8.0",
     "serve-favicon": "^2.5.0",
     "winston": "^3.3.3"
