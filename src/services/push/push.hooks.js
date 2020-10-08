@@ -1,5 +1,5 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
-//const webpush = require('../../hooks/webpush');
+const webpush = require('../../hooks/webpush');
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
@@ -15,7 +15,7 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [/* webpush() */],
+    create: [ webpush() ],
     update: [],
     patch: [],
     remove: []

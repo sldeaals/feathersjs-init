@@ -20,7 +20,9 @@ module.exports = function (app) {
     country: { type: mongooseClient.Schema.Types.ObjectId, ref: 'country' },
     gender: { type: mongooseClient.Schema.Types.ObjectId, ref: 'gender' },
     createdAt: { type: Date, default: Date.now },
-    updatedAt: Date
+    updatedAt: { type: Date }
+  }, {
+    timestamps: true
   });
 
   // This is necessary to avoid model compilation errors in watch mode

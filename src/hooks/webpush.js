@@ -5,7 +5,7 @@ const triggerPushMsg = function(subscription, dataToSend) {
   return webpush.sendNotification(subscription, dataToSend)
   .then(response=>{
     //check everything ok only for test
-    console.log ( 'msg sent' , response )
+    console.log ( 'msg sent' , response );
   })
   .catch((err) => {
     //add log features for production
@@ -13,11 +13,11 @@ const triggerPushMsg = function(subscription, dataToSend) {
   });
 };
 
-module.exports = function (options = {}) {
+module.exports = function () {
     return async context => {
       //get the notification by the notification parameter sent thru our POST
       context.app.service('notifications').get(context.data.notification).then(result=>{
-        return result
+        return result;
       }).then(notification=>{
         //create the message to send based on our notification from DB
         const dataToSend = {
@@ -28,7 +28,7 @@ module.exports = function (options = {}) {
             "icon"  : context.app.settings.logo,
             "data" : notification.url ? { "url" : notification.url } : ''
           }
-        }
+        };
   
         //recall the vapid keys
         const vapidKeys = {
@@ -57,9 +57,8 @@ module.exports = function (options = {}) {
             });
           }
           return promiseChain;
-        })
-  
-      })
+        });
+      });
       return context;
     };
   };

@@ -9,6 +9,8 @@ const processProduct = require('../../hooks/process-product');
 
 const populateProduct = require('../../hooks/populate-product');
 
+const createAuthorNotification = require('../../hooks/create-author-notification');
+
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
@@ -24,9 +26,9 @@ module.exports = {
     all: [ populateProduct() ],
     find: [],
     get: [],
-    create: [],
-    update: [],
-    patch: [],
+    create: [ createAuthorNotification() ],
+    update: [ createAuthorNotification() ],
+    patch: [ createAuthorNotification () ],
     remove: []
   },
 

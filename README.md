@@ -39,6 +39,9 @@ $ feathers generate service               # Generate a new Service
 $ feathers generate hook                  # Generate a new Hook
 $ feathers help                           # Show all commands
 ```
+## WebPush Notifications
+
+https://swina.github.io/2019/02/webpush-notifications-with-feathersjs/
 
 ## Help
 

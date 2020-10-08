@@ -1,5 +1,5 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
-
+const pushNotification = require('../../hooks/push-notification');
 module.exports = {
   before: {
     all: [ authenticate('jwt') ],
@@ -15,9 +15,9 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [],
-    update: [],
-    patch: [],
+    create: [ pushNotification() ],
+    update: [ pushNotification() ],
+    patch: [ pushNotification() ],
     remove: []
   },
 

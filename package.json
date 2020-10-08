@@ -60,6 +60,7 @@
     "mongoose": "^5.10.8",
     "nedb": "^1.8.0",
     "serve-favicon": "^2.5.0",
+    "web-push": "^3.4.4",
     "winston": "^3.3.3"
   },
   "devDependencies": {

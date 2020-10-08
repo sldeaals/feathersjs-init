@@ -5,7 +5,7 @@
 module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
   return async context => {
     let newData = {};
-    const { data, id, params, method } = context;
+    const { data, params, method } = context;
 
     // Throw an error if we didn't get required fields
     // && Make sure that fields has correct limitation
@@ -41,33 +41,14 @@ module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
           itemContidion: data.offers.itemContidion, availability: data.offers.availability 
         }
         : {};
+    
+    newData.author = Object.entries(data.author)[0] 
+      ? (data.author.id && data.author.name ? { '@type': 'Person', id: data.author.id, name: data.author.name.substring(0, 100) } : {})
+      : {};
 
     // The logged in user
-    const user = data.user || params.user || params.query.user
+    const user = data.user || params.user || params.query.user;
     
-    // Validate method result fields value
-    switch (method){
-      case 'create':
-        newData.author = Object.entries(data.author)[0] 
-          ? (data.author.id && data.author.name ? { '@type': 'Person', id: data.author.id, name: data.author.name.substring(0, 100) } : {})
-          : {};
-        newData.notification = { author: Object.entries(newData.author)[0] ? `${data.author.name} was named author of the product ${newData.name}` : '' };
-        newData.createdAt = new Date().getTime();
-        break;
-      case 'put':
-      case 'patch':
-      case 'update':
-        const productService = context.app.services['products'];
-        const oldRecord = await productService._get(id);
-        const oldAuthor = oldRecord.author;
-        newData.author = Object.entries(data.author)[0] 
-          ? (data.author.id && data.author.name ? { '@type': 'Person', id: data.author.id, name: data.author.name.substring(0, 100) } : oldAuthor)
-          : oldAuthor;
-        newData.notification = { author: Object.entries(newData.author)[0] && oldAuthor !== newData.author ? `${data.author.name} was named author of the product ${newData.name}` : '' };
-        newData.updatedAt = new Date().getTime();
-        break;
-    }
-
     // Update the original data (so that people can't submit additional stuff)
     newData = {
       ...newData,

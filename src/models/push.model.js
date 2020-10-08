@@ -7,7 +7,7 @@ module.exports = function (app) {
   const mongooseClient = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const schema = new Schema({
-    text: { type: String, required: true }
+    notification: { type: mongooseClient.Schema.Types.ObjectId, ref: 'notifications', required: true }
   }, {
     timestamps: true
   });

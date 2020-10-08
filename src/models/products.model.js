@@ -20,6 +20,8 @@ module.exports = function (app) {
     user: { type: mongooseClient.Schema.Types.ObjectId, ref: 'users' },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date }
+  }, {
+    timestamps: true
   });
 
   // This is necessary to avoid model compilation errors in watch mode
