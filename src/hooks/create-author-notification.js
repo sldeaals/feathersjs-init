@@ -14,7 +14,7 @@ module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
     // And if its required to 
     switch (method){
     case 'create': {
-      if (Object.entries(author)[0])
+      if (Object.entries(data.author)[0])
         newData = {
           title: 'New product author',
           body: `${data.author.name} was named author of the product ${data.name}`,
@@ -32,12 +32,8 @@ module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
       const productService = context.app.services['products'];
       const oldRecord = await productService._get(id);
       const oldAuthor = oldRecord.author;
-      author = Object.entries(data.author)[0] 
-        ? (data.author.id && data.author.name ? { '@type': 'Person', id: data.author.id, name: data.author.name.substring(0, 100) } : oldAuthor)
-        : oldAuthor;
-      newData = { author: Object.entries(author)[0] && oldAuthor.id !== author.id ? `${data.author.name} was named author of the product ${data.name}` : '' };
       
-      if (Object.entries(author)[0] && oldAuthor.id !== author.id)
+      if (Object.entries(data.author)[0] && oldAuthor.id !== author.id)
         newData = {
           title: 'Change of product author',
           body: `${data.author.name} was named author of the product ${data.name}`,
