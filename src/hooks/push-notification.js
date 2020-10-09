@@ -3,18 +3,23 @@
 
 // eslint-disable-next-line no-unused-vars
 module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
-    return async context => {
-      const { data, result } = context;
-      const notification = { notification: data._id || result._id };
-      // Pushes new notifications
-      const pushService = context.app.services['push'];
-      const newPush = await pushService.create(notification);
-      // Populate notification pushed
-      const pushModel = pushService.Model;
-      const populatedPush = await pushModel.find().where({ _id: newPush._id }).populate('notification').exec();
-      context.data = populatedPush;
-  
+  return async context => {
+    const { data, result } = context;
+
+    // Validate if its required to push a notification
+    if (!Object.entries(data)[0])
       return context;
-    };
+
+    const notification = { notification: data._id || result._id };
+    // Pushes new notifications
+    const pushService = context.app.services['push'];
+    const newPush = await pushService.create(notification);
+    // Populate notification pushed
+    const pushModel = pushService.Model;
+    const populatedPush = await pushModel.find().where({ _id: newPush._id }).populate('notification').exec();
+    context.data = populatedPush;
+
+    return context;
   };
+};
   

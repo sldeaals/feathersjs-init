@@ -9,10 +9,10 @@ module.exports = function (app) {
     code: { type: String },
     name: { type: String }, 
     description: { type: String },
-    brand: { "@type": { type: String }, id: { type: String }, name: { type: String } },
-    author: { "@type": { type: String }, id: { type: String }, name: { type: String } },
+    brand: { '@type': { type: String }, id: { type: String }, name: { type: String } },
+    author: { '@type': { type: String }, id: { type: String }, name: { type: String } },
     offers: { 
-      "@type": { type: String },
+      '@type': { type: String },
       url: { type: String } , priceCurrency: { type: String },
       price: { type: String }, priceValidUntil: { type: String }, 
       itemContidion: { type: String }, availability: { type: String }
