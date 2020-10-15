@@ -5,30 +5,17 @@
 /* eslint-disable require-atomic-updates */
 module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
   return async context => {
+    const userFields = 'name firstName lastName email mobilePhone homePhone';
     // Get `app`, `method`, `params` and `result` from the hook context
     const { app, method, result } = context;
     // Function that adds the user to a single product object
     const fillDependencies = async products => {
       let idArr = products.map(product => product._id);
       const productModel = app.service('products').Model;
-      // Populate brand, author, user
-      const populatedProducts = await productModel.find().where({ _id: idArr }).populate('user').exec();
-      const records = populatedProducts.map(product => { 
-        let record = product;
-        // Product
-        delete record.createdAt;
-        delete record.updatedAt;
-        delete record.active;
-        // User
-        if (record.user){
-          delete record.user.createdAt;
-          delete record.user.updatedAt;
-          delete record.user.active;
-          delete record.user.password;
-        }
-        return record;
-      });
-      return records;
+      // Populate user { brand, author }(this will be populated in another commit) 
+      return await productModel.find().where({ _id: idArr })
+        .populate({ path: 'user', select: userFields })
+        .exec();
     };
 
     const addUser = async product => {
@@ -40,11 +27,8 @@ module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
         return product;
 
       const userModel = app.service('users').Model;
-      const user = await userModel.findById(_id);
-      delete user.createdAt;
-      delete user.updatedAt;
-      delete user.active;
-      delete user.password;
+      const user = await userModel.findById(_id)
+        .select(userFields);
       // Merge the product content to include the `user` object
       return {
         ...product,
@@ -55,7 +39,6 @@ module.exports = function (options = {}) { // eslint-disable-line no-unused-vars
     // In a find method we need to process the entire page
     if (method === 'find') {
       // Map all data to include the `user` information
-      // context.result.data = await Promise.all(result.data.map(addUser));
       context.result.data = await fillDependencies(result.data);
     } else {
       // Otherwise just update the single result
